@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Book;
 use App\Http\Controllers\Controller;
 use App\Models\Book;
 
-class DestroyController extends Controller
+class DestroyController extends BaseController
 {
     public function __invoke(Book $book)
     {
