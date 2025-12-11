@@ -1,6 +1,13 @@
 <?php
 
 use App\Http\Controllers\AboutController;
+use App\Http\Controllers\Book\CreateController;
+use App\Http\Controllers\Book\DestroyController;
+use App\Http\Controllers\Book\EditController;
+use App\Http\Controllers\Book\IndexController;
+use App\Http\Controllers\Book\ShowController;
+use App\Http\Controllers\Book\StoreController;
+use App\Http\Controllers\Book\UpdateController;
 use App\Http\Controllers\BookController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\DogController;
@@ -17,6 +24,23 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+//Для однометодных контроллеров
+Route::group([], function() {
+    Route::get('/book', IndexController::class)->name('book.index');
+
+    Route::get('/book/create', CreateController::class)->name('book.create');
+
+    Route::post('/book', StoreController::class)->name('book.store');
+
+    Route::get('/book/{book}', ShowController::class)->name('book.show');
+
+    Route::get('/book/{book}/edit', EditController::class)->name('book.edit');
+
+    Route::patch('/book/{book}', UpdateController::class)->name('book.update');
+
+    Route::delete('/book/{book}', DestroyController::class)->name('book.destroy');
+});
+
 Route::get('/my_page', [MyPageController::class, 'index']);
 
 Route::get('/my_city', [MyCityController::class, 'index']);
@@ -31,21 +55,7 @@ Route::get('/football', [FootballController::class, 'index']);
 
 Route::get('/food', [FoodController::class, 'index']);
 
-Route::get('/book', [BookController::class, 'index'])->name('book.index');
-
 Route::get('/book/filter/{filter}', [BookController::class, 'filter']);
-
-Route::get('/book/create', [BookController::class, 'create'])->name('book.create');
-
-Route::post('/book', [BookController::class, 'store'])->name('book.store');
-
-Route::get('/book/{book}', [BookController::class, 'show'])->name('book.show');
-
-Route::get('/book/{book}/edit', [BookController::class, 'edit'])->name('book.edit');
-
-Route::patch('/book/{book}', [BookController::class, 'update'])->name('book.update');
-
-Route::delete('/book/{book}', [BookController::class, 'destroy'])->name('book.destroy');
 
 Route::get('/book/update', [BookController::class, 'update']);
 
