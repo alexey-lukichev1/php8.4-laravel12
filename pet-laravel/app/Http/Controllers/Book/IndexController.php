@@ -9,7 +9,7 @@ class IndexController extends BaseController
 {
     public function __invoke()
     {
-        $books = Book::all();
+        $books = Book::paginate(5);
         // foreach ($books as $book) {
         //     dump($book->title);
         // }
