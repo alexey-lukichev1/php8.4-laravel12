@@ -6,7 +6,7 @@
           <div><a href="{{ route('book.show', $book->id) }}" class="btn btn-light mb-3">{{ $book->id }}. {{ $book->title }}</a></div>
         @endforeach
         <div>
-            {{ $books->links() }}
+            {{ $books->withQueryString()->links() }}
         </div>
     </div>
 @endsection

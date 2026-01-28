@@ -44,5 +44,10 @@ class DatabaseSeeder extends Seeder
             'progress' => '100',
             'views' => 15000,
         ]);
+
+        // Заполнить todos
+        $this->call([
+            TodoSeeder::class,
+        ]);
     }
 }

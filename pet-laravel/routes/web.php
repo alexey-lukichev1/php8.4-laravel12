@@ -18,6 +18,7 @@ use App\Http\Controllers\MyCatController;
 use App\Http\Controllers\MyCityController;
 use App\Http\Controllers\MyCountryController;
 use App\Http\Controllers\MyPageController;
+use App\Http\Controllers\TodoController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -70,3 +71,12 @@ Route::get('/about', [AboutController::class, 'index'])->name('about.index');
 Route::get('/contacts', [ContactController::class, 'index'])->name('contact.index');
 
 Route::get('/main', [MainController::class, 'index'])->name('main.index');
+
+// Todo routes
+Route::prefix('api/todos')->group(function () {
+    Route::get('/', [TodoController::class, 'index'])->name('todos.index');
+    Route::post('/', [TodoController::class, 'store'])->name('todos.store');
+    Route::patch('/{todo}', [TodoController::class, 'update'])->name('todos.update');
+    Route::delete('/{todo}', [TodoController::class, 'destroy'])->name('todos.destroy');
+    Route::delete('/clear/completed', [TodoController::class, 'clearCompleted'])->name('todos.clearCompleted');
+});
