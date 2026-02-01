@@ -26,7 +26,7 @@ Route::get('/', function () {
 });
 
 //Для однометодных контроллеров
-Route::group([], function() {
+Route::middleware(['admin'])->group(function() {
     Route::get('/book', IndexController::class)->name('book.index');
 
     Route::get('/book/create', CreateController::class)->name('book.create');
@@ -80,3 +80,7 @@ Route::prefix('api/todos')->group(function () {
     Route::delete('/{todo}', [TodoController::class, 'destroy'])->name('todos.destroy');
     Route::delete('/clear/completed', [TodoController::class, 'clearCompleted'])->name('todos.clearCompleted');
 });
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
