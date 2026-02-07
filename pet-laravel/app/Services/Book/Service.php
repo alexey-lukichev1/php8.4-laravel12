@@ -3,18 +3,30 @@
 namespace App\Services\Book;
 
 use App\Models\Book;
+use Exception;
+use Illuminate\Support\Facades\DB;
 
 class Service
 {
     public function store($data)
     {
-        $tags = $data['tags'];
-        unset($data['tags']);
 
-        // dd($tags, $data);
-        $book = Book::create($data);
+        try {
+            DB::beginTransaction();
 
-        $book->tags()->attach($tags);
+            $tags = $data['tags'];
+            unset($data['tags']);
+
+            // dd($tags, $data);
+            $book = Book::create($data);
+
+            $book->tags()->attach($tags);
+
+            DB::commit();
+        } catch (Exception $e) {
+            DB::rollBack();
+            return $e->getMessage();
+        }
     }
 
     public function update(Book $book, $data)

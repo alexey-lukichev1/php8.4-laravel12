@@ -16,7 +16,7 @@ class AdminPanelMiddleware
     public function handle(Request $request, Closure $next): Response
     {
         if (auth()->user()->role !== 'admin') {
-            return redirect()->route('home');
+            abort(403, 'Доступ запрещен. Требуется роль администратора.');
         }
         return $next($request);
     }
